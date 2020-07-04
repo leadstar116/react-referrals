@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useState, ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 
 function RegisterPage() {
@@ -11,6 +11,10 @@ function RegisterPage() {
     })
     const [submitted, setSubmitted] = useState(false)
 
+    function handleInputChanged(e: ChangeEvent) {
+        const {name, value} = e.target as HTMLTextAreaElement
+        setInputs(inputs => ({...inputs, [name]: value}))
+    }
     function handleSubmit(e: FormEvent){
         e.preventDefault()
         setSubmitted(true)
@@ -25,6 +29,7 @@ function RegisterPage() {
                         type="text"
                         name="firstname"
                         value={inputs.firstname}
+                        onChange={handleInputChanged}
                         className={'form-control' + (submitted&&!inputs.firstname ? ' is-invalid' : '')}
                     />
                 </div>
@@ -34,6 +39,7 @@ function RegisterPage() {
                         type="text"
                         name="lastname"
                         value={inputs.lastname}
+                        onChange={handleInputChanged}
                         className={'form-control' + (submitted&&!inputs.firstname ? ' is-invalid' : '')}
                     />
                 </div>
@@ -43,6 +49,7 @@ function RegisterPage() {
                         type="email"
                         name="email"
                         value={inputs.email}
+                        onChange={handleInputChanged}
                         className={'form-control' + (submitted&&!inputs.firstname ? ' is-invalid' : '')}
                     />
                 </div>
@@ -51,7 +58,7 @@ function RegisterPage() {
                     <input
                         type="password"
                         name="password"
-                        value={inputs.password}
+                        onChange={handleInputChanged}
                         className={'form-control' + (submitted&&!inputs.firstname ? ' is-invalid' : '')}
                     />
                 </div>
@@ -61,6 +68,7 @@ function RegisterPage() {
                         type="text"
                         name="referralToken"
                         value={inputs.referralToken}
+                        onChange={handleInputChanged}
                         className={'form-control'}
                     />
                 </div>
