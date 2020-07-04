@@ -1,6 +1,7 @@
 import React from 'react'
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom'
 import LoginPage from '../LoginPage/LoginPage'
+import RegisterPage from '../RegisterPage/RegisterPage';
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
             <Switch>
               <Route>
                 <Route exact path='/' component={LoginPage} />
+                <Route exact path='/login' component={LoginPage} />
+                <Route exact path='/register' component={RegisterPage} />
                 <Redirect from="*" to="/" />
               </Route>
             </Switch>
