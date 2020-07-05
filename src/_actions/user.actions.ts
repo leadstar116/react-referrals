@@ -1,9 +1,9 @@
-import { UserData } from '../_constants/user.interface'
+import { UserData, LoggedInUser } from '../_constants/user.interface'
 
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
-export const userLogInSuccess = (user: UserData) => ({
+export const userLogInSuccess = (loggedInUser: LoggedInUser) => ({
     type: USER_LOGIN_SUCCESS,
-    payload: { user }
+    payload: { loggedInUser }
 })
 
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE'

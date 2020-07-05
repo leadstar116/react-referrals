@@ -1,7 +1,17 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { userLogin } from '../_helpers/user.thunk'
+import { UserData } from '../_constants/user.interface'
+import { ThunkDispatch } from 'redux-thunk'
+import { AnyAction } from 'redux'
 
-function LoginPage() {
+type Props = {
+    userState: LoginState,
+    handleLogin: (email:string, password: string) => void,
+}
+
+function LoginPage(props: Props) {
     const [inputs, setInputs] = useState({
         username: '',
         password: ''
@@ -15,6 +25,10 @@ function LoginPage() {
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
         setSubmitted(true)
+
+        if(inputs.username && inputs.password) {
+            props.handleLogin(inputs.username, inputs.password)
+        }
     }
     return (
         <div className="col-lg-8 offset-lg-2">
@@ -47,4 +61,17 @@ function LoginPage() {
     )
 }
 
-export default LoginPage
+interface LoginState {
+    isLoggedIn: boolean,
+    user: UserData,
+}
+
+const mapStateToProps = (state: LoginState) => ({
+    userState: state
+})
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => ({
+    handleLogin: (email:string, password: string) => dispatch(userLogin(email, password))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)

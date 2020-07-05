@@ -6,3 +6,7 @@ export interface UserData {
     password: '',
     referralToken: '',
 }
+export interface LoggedInUser {
+    id: number,
+    token: string
+}

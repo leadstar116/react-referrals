@@ -4,11 +4,12 @@ import {
     USER_REGISTER_FAILURE,
     USER_REGISTER_SUCCESS
 } from '../_actions/user.actions'
-import { UserData } from '../_constants/user.interface';
+import { UserData, LoggedInUser } from '../_constants/user.interface';
 
 type initialState = {
     user: UserData,
     isLoggedIn: false,
+    loggedInUser: LoggedInUser
 }
 const userReducer = (state: initialState, action: any) => {
     const {type, payload} = action
@@ -16,7 +17,8 @@ const userReducer = (state: initialState, action: any) => {
     switch(type) {
         case USER_LOGIN_SUCCESS: {
             return {
-                user: payload.user,
+                ...state,
+                loggedInUser: payload.loggedInUser,
                 isLoggedIn: true
             }
         }
@@ -28,6 +30,7 @@ const userReducer = (state: initialState, action: any) => {
         }
         case USER_REGISTER_SUCCESS: {
             return {
+                ...state,
                 user: payload.user,
                 isLoggedIn: true
             }
@@ -39,7 +42,7 @@ const userReducer = (state: initialState, action: any) => {
             }
         }
     }
-    return state
+    return null
 }
 
 export default userReducer
