@@ -36,7 +36,7 @@ function LoginPage(props: Props) {
     return (
         <div className="col-lg-8 offset-lg-2">
             <h2 className="mb-4">Login</h2>
-            {!props.userState.isLoggedIn && props.alertState !== undefined &&
+            {props.alertState !== undefined &&
                 <div className={props.alertState.alertClass}>
                     {props.alertState.alertMessage}
                 </div>

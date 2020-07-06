@@ -15,8 +15,8 @@ type initialState = {
 
 const userState: initialState = {
     user: {
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
         referralToken: '',
@@ -48,7 +48,7 @@ const userReducer = (state = userState, action: any) => {
         case USER_REGISTER_SUCCESS: {
             return {
                 ...state,
-                user: payload.user,
+                loggedInUser: payload.loggedInUser,
                 isLoggedIn: true
             }
         }

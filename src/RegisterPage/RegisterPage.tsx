@@ -1,14 +1,25 @@
 import React, { FormEvent, useState, ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { AnyAction } from 'redux'
+import { ThunkDispatch } from 'redux-thunk'
+import { UserData } from '../_constants/user.interface'
+import { userRegister } from '../_helpers/user.thunk'
+import { AlertData } from '../_constants/alert.interface'
 
-function RegisterPage() {
+type Props = {
+    alertState: AlertData,
+    handleRegister: (userData: UserData) => {}
+}
+
+function RegisterPage(props: Props) {
     const [inputs, setInputs] = useState({
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
         referralToken: ''
-    })
+    } as UserData)
     const [submitted, setSubmitted] = useState(false)
 
     function handleInputChanged(e: ChangeEvent) {
@@ -18,29 +29,40 @@ function RegisterPage() {
     function handleSubmit(e: FormEvent){
         e.preventDefault()
         setSubmitted(true)
+        if(inputs.firstName
+            && inputs.lastName
+            && inputs.email
+            && inputs.password) {
+            props.handleRegister(inputs)
+        }
     }
     return (
         <div className="col-lg-8 offset-lg-2">
             <h2 className="mb-4">Register</h2>
+            {props.alertState !== undefined &&
+                <div className={props.alertState.alertClass}>
+                    {props.alertState.alertMessage}
+                </div>
+            }
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="firstname">Firstname</label>
+                    <label htmlFor="firstName">Firstname</label>
                     <input
                         type="text"
-                        name="firstname"
-                        value={inputs.firstname}
+                        name="firstName"
+                        value={inputs.firstName}
                         onChange={handleInputChanged}
-                        className={'form-control' + (submitted&&!inputs.firstname ? ' is-invalid' : '')}
+                        className={'form-control' + (submitted&&!inputs.firstName ? ' is-invalid' : '')}
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="lastname">Lastname</label>
+                    <label htmlFor="lastName">Lastname</label>
                     <input
                         type="text"
-                        name="lastname"
-                        value={inputs.lastname}
+                        name="lastName"
+                        value={inputs.lastName}
                         onChange={handleInputChanged}
-                        className={'form-control' + (submitted&&!inputs.firstname ? ' is-invalid' : '')}
+                        className={'form-control' + (submitted&&!inputs.lastName ? ' is-invalid' : '')}
                     />
                 </div>
                 <div className="form-group">
@@ -50,7 +72,7 @@ function RegisterPage() {
                         name="email"
                         value={inputs.email}
                         onChange={handleInputChanged}
-                        className={'form-control' + (submitted&&!inputs.firstname ? ' is-invalid' : '')}
+                        className={'form-control' + (submitted&&!inputs.email ? ' is-invalid' : '')}
                     />
                 </div>
                 <div className="form-group">
@@ -59,7 +81,7 @@ function RegisterPage() {
                         type="password"
                         name="password"
                         onChange={handleInputChanged}
-                        className={'form-control' + (submitted&&!inputs.firstname ? ' is-invalid' : '')}
+                        className={'form-control' + (submitted&&!inputs.password ? ' is-invalid' : '')}
                     />
                 </div>
                 <div className="form-group">
@@ -81,4 +103,12 @@ function RegisterPage() {
     )
 }
 
-export default RegisterPage
+const mapStateToProps = (state: {alertReducer: AlertData}) => ({
+    alertState: state.alertReducer
+})
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction> ) => ({
+    handleRegister: (userData: UserData) => dispatch(userRegister(userData))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage)

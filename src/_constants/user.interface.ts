@@ -1,7 +1,7 @@
 
 export interface UserData {
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     referralToken: '',

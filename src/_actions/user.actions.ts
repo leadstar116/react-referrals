@@ -7,21 +7,21 @@ export const userLogInSuccess = (loggedInUser: LoggedInUser) => ({
 })
 
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE'
-export const userLogInFailure = (error: string) => ({
+export const userLogInFailure = () => ({
     type: USER_LOGIN_FAILURE,
-    payload: { error }
+    payload: {}
 })
 
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS'
-export const userRegisterSuccess = (user: UserData) => ({
+export const userRegisterSuccess = (loggedInUser: LoggedInUser) => ({
     type: USER_REGISTER_SUCCESS,
-    payload: { user }
+    payload: { loggedInUser }
 })
 
 export const USER_REGISTER_FAILURE = 'USER_REGISTER_FAILURE'
-export const userRegisterFailure = (error: string) => ({
+export const userRegisterFailure = () => ({
     type: USER_REGISTER_FAILURE,
-    payload: { error }
+    payload: {}
 })
 
 export const USER_LOGOUT = 'USER_LOGOUT'

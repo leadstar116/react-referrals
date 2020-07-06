@@ -9,3 +9,9 @@ export const alertFailure = (message: string) => ({
     type: ALERT_FAILURE,
     payload: { message }
 })
+
+export const ALERT_CLEAR = 'ALERT_CLEAR'
+export const alertClear = () => ({
+    type: ALERT_CLEAR,
+    payload: {}
+})

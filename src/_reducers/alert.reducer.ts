@@ -1,6 +1,7 @@
 import {
     ALERT_FAILURE,
-    ALERT_SUCCESS
+    ALERT_SUCCESS,
+    ALERT_CLEAR
 } from '../_actions/alert.actions'
 import { AlertData } from '../_constants/alert.interface';
 
@@ -25,6 +26,13 @@ const alertReducer = (state = alertState, action: any) => {
                 ...state,
                 alertMessage: payload.message,
                 alertClass: 'alert alert-danger'
+            }
+        }
+        case ALERT_CLEAR: {
+            return {
+                ...state,
+                alertMessage: '',
+                alertClass: ''
             }
         }
     }
