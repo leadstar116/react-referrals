@@ -23,3 +23,9 @@ export const userRegisterFailure = (error: string) => ({
     type: USER_REGISTER_FAILURE,
     payload: { error }
 })
+
+export const USER_LOGOUT = 'USER_LOGOUT'
+export const userLogoutSuccess = () => ({
+    type: USER_LOGOUT,
+    payload: {}
+})

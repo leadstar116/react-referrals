@@ -2,12 +2,14 @@ import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { userLogin } from '../_helpers/user.thunk'
-import { UserData, AlertData } from '../_constants/user.interface'
+import { UserData } from '../_constants/user.interface'
+import { AlertData } from '../_constants/alert.interface'
 import { ThunkDispatch } from 'redux-thunk'
 import { AnyAction } from 'redux'
 
 type Props = {
     userState: LoginState,
+    alertState: AlertData,
     handleLogin: (email:string, password: string) => void,
 }
 
@@ -30,12 +32,13 @@ function LoginPage(props: Props) {
             props.handleLogin(inputs.username, inputs.password)
         }
     }
+    console.log(props.alertState)
     return (
         <div className="col-lg-8 offset-lg-2">
             <h2 className="mb-4">Login</h2>
-            {!props.userState.isLoggedIn &&
-                <div className={props.userState.alertData.alertClass}>
-                    {props.userState.alertData.alertMessage}
+            {!props.userState.isLoggedIn && props.alertState !== undefined &&
+                <div className={props.alertState.alertClass}>
+                    {props.alertState.alertMessage}
                 </div>
             }
             <form name="form" onSubmit={handleSubmit}>
@@ -69,11 +72,11 @@ function LoginPage(props: Props) {
 interface LoginState {
     isLoggedIn: boolean,
     user: UserData,
-    alertData: AlertData,
 }
 
-const mapStateToProps = (state: {userReducer: LoginState}) => ({
-    userState: state.userReducer
+const mapStateToProps = (state: {userReducer: LoginState, alertReducer: AlertData}) => ({
+    userState: state.userReducer,
+    alertState: state.alertReducer
 })
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => ({

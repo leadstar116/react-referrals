@@ -2,15 +2,15 @@ import {
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAILURE,
     USER_REGISTER_FAILURE,
-    USER_REGISTER_SUCCESS
+    USER_REGISTER_SUCCESS,
+    USER_LOGOUT
 } from '../_actions/user.actions'
-import { UserData, LoggedInUser, AlertData } from '../_constants/user.interface';
+import { UserData, LoggedInUser } from '../_constants/user.interface';
 
 type initialState = {
     user: UserData,
     isLoggedIn: false,
     loggedInUser: LoggedInUser,
-    alertData: AlertData,
 }
 
 const userState: initialState = {
@@ -25,11 +25,7 @@ const userState: initialState = {
     loggedInUser: {
         id: 0,
         token: ''
-    },
-    alertData: {
-        alertClass: '',
-        alertMessage: ''
-    },
+    }
 }
 
 const userReducer = (state = userState, action: any) => {
@@ -47,10 +43,6 @@ const userReducer = (state = userState, action: any) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                alertData: {
-                    alertMessage: payload.error,
-                    alertClass: 'alert alert-danger'
-                }
             }
         }
         case USER_REGISTER_SUCCESS: {
@@ -64,6 +56,16 @@ const userReducer = (state = userState, action: any) => {
             return {
                 ...state,
                 isLoggedIn: false
+            }
+        }
+        case USER_LOGOUT: {
+            return {
+                ...state,
+                isLoggedIn: false,
+                loggedInUser: {
+                    id: 0,
+                    token: ''
+                }
             }
         }
     }

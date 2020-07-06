@@ -1,7 +1,8 @@
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from "redux"
-import { userLogInSuccess, userLogInFailure } from '../_actions/user.actions'
+import { userLogInSuccess, userLogInFailure, userLogoutSuccess } from '../_actions/user.actions'
 import { history } from '../_helpers/history'
+import { alertSuccess, alertFailure } from '../_actions/alert.actions';
 
 type MyRootState = {};
 type MyExtraArg = undefined;
@@ -20,11 +21,20 @@ export const userLogin = (email: string, password: string) => async (dispatch: M
         const result = await response.json()
         if(response.status === 200) {
             dispatch(userLogInSuccess(result))
+            dispatch(alertSuccess(result))
             history.push('/')
         } else {
             dispatch(userLogInFailure(result.message))
+            dispatch(alertFailure(result.message))
         }
     } catch(e) {
         dispatch(userLogInFailure(e))
+        dispatch(alertFailure(e))
     }
+}
+
+export const userLogout = () => async (dispatch: MyThunkDispatch) => {
+    dispatch(userLogoutSuccess())
+    dispatch(alertSuccess('You are now logged out!'))
+    history.push('/login')
 }

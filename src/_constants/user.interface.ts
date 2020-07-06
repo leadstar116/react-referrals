@@ -11,7 +11,3 @@ export interface LoggedInUser {
     token: string
 }
 
-export interface AlertData {
-    alertMessage: '',
-    alertClass: ''
-}
