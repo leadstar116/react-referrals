@@ -8,7 +8,7 @@ export const userLogInSuccess = (loggedInUser: LoggedInUser) => ({
 
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE'
 export const userLogInFailure = (error: string) => ({
-    type: USER_LOGIN_SUCCESS,
+    type: USER_LOGIN_FAILURE,
     payload: { error }
 })
 

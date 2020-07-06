@@ -10,3 +10,8 @@ export interface LoggedInUser {
     id: number,
     token: string
 }
+
+export interface AlertData {
+    alertMessage: '',
+    alertClass: ''
+}

@@ -8,7 +8,6 @@ type Props = {
 }
 
 function HomePage( props: Props ) {
-    console.log(props)
     if(props.userState.isLoggedIn) {
         return (
             <div className="">
@@ -28,14 +27,6 @@ type UserState = {
 
 const mapStateToProps = (state: { userReducer: UserState; }) => ({
     userState: state.userReducer
-        ? state.userReducer
-        : {
-            isLoggedIn: false,
-            loggedInUser: {
-                id: -1,
-                token: ''
-            }
-        } as UserState
 })
 
 const mapDispatchToProps = () => ({

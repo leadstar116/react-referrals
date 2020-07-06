@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { userLogin } from '../_helpers/user.thunk'
-import { UserData } from '../_constants/user.interface'
+import { UserData, AlertData } from '../_constants/user.interface'
 import { ThunkDispatch } from 'redux-thunk'
 import { AnyAction } from 'redux'
 
@@ -33,6 +33,11 @@ function LoginPage(props: Props) {
     return (
         <div className="col-lg-8 offset-lg-2">
             <h2 className="mb-4">Login</h2>
+            {!props.userState.isLoggedIn &&
+                <div className={props.userState.alertData.alertClass}>
+                    {props.userState.alertData.alertMessage}
+                </div>
+            }
             <form name="form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
@@ -64,10 +69,11 @@ function LoginPage(props: Props) {
 interface LoginState {
     isLoggedIn: boolean,
     user: UserData,
+    alertData: AlertData,
 }
 
-const mapStateToProps = (state: LoginState) => ({
-    userState: state
+const mapStateToProps = (state: {userReducer: LoginState}) => ({
+    userState: state.userReducer
 })
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => ({
