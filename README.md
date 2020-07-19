@@ -1,6 +1,25 @@
+# React simple referral front-end
+Please check details on this https://github.com/leadstar116/nestjs-simple-referral
+This project demonstrates the front-end development with React for above referral apis built with Nest.js
+
+## Stacks
+- React
+- Redux
+- Redux-Thunk
+- Bootstrap
+
+## Screenshots
+<img src="https://content.screencast.com/users/SupremeDev/folders/Default/media/b1fd6b5d-1d4c-4886-aa3e-f8c3f84a6554/screenshot.png" />
+<img src="https://content.screencast.com/users/SupremeDev/folders/Default/media/1abdab8e-fdff-4f9f-9126-aa1f026003fc/screenshot.png" />
+
+
+# Project Run
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+
+Please make sure you cloned back-end repo: https://github.com/leadstar116/nestjs-simple-referral and run this on http://localhost:8080
 
 In the project directory, you can run:
 
