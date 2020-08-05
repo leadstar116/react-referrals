@@ -1,0 +1,9 @@
+.board-row div {
+    display: inline-block;
+}
+.square-span {
+    border: 1px solid #000;
+    padding: 20px;
+    width: 50px;
+    display: inline-block;
+}

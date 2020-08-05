@@ -30,7 +30,7 @@ export const userLogin = (email: string, password: string) => async (dispatch: M
         }
     } catch(e) {
         dispatch(userLogInFailure())
-        dispatch(alertFailure(e))
+        dispatch(alertFailure('Failed to fetch'))
     }
 }
 

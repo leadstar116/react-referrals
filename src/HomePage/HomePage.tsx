@@ -1,22 +1,29 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { AlertData } from '../_constants/alert.interface';
 import { LoggedInUser } from '../_constants/user.interface';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import { userLogout } from '../_helpers/user.thunk';
 
-type Props = {
-    userState: UserState
-    userLogOut: () => {}
+type UserState = {
+    isLoggedIn: false,
+    loggedInUser: LoggedInUser
 }
 
-function HomePage( props: Props ) {
+interface initialState {
+    userReducer: UserState,
+    alertReducer: AlertData
+}
+
+function HomePage() {
+    const dispatch = useDispatch()
+    const userState = useSelector((state:initialState) => state.userReducer)
+
     function handleLogOut() {
-        props.userLogOut()
+        dispatch(userLogout())
     }
 
-    if(props.userState.isLoggedIn) {
+    if(userState.isLoggedIn) {
         return (
             <div className="">
                 <h2>HomePage</h2>
@@ -29,17 +36,4 @@ function HomePage( props: Props ) {
     )
 }
 
-type UserState = {
-    isLoggedIn: false,
-    loggedInUser: LoggedInUser
-}
-
-const mapStateToProps = (state: { userReducer: UserState; }) => ({
-    userState: state.userReducer
-})
-
-const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => ({
-    userLogOut: () => dispatch(userLogout())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default HomePage

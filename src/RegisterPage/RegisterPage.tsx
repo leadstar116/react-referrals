@@ -1,18 +1,18 @@
 import React, { FormEvent, useState, ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { AnyAction } from 'redux'
-import { ThunkDispatch } from 'redux-thunk'
+import { useDispatch, useSelector } from 'react-redux'
 import { UserData } from '../_constants/user.interface'
 import { userRegister } from '../_helpers/user.thunk'
 import { AlertData } from '../_constants/alert.interface'
 
-type Props = {
-    alertState: AlertData,
-    handleRegister: (userData: UserData) => {}
+interface initialState {
+    alertReducer: AlertData
 }
 
-function RegisterPage(props: Props) {
+function RegisterPage() {
+    const dispatch = useDispatch()
+    const alertState = useSelector((state:initialState) => state.alertReducer)
+
     const [inputs, setInputs] = useState({
         firstName: '',
         lastName: '',
@@ -33,15 +33,15 @@ function RegisterPage(props: Props) {
             && inputs.lastName
             && inputs.email
             && inputs.password) {
-            props.handleRegister(inputs)
+            dispatch(userRegister(inputs))
         }
     }
     return (
         <div className="col-lg-8 offset-lg-2">
             <h2 className="mb-4">Register</h2>
-            {props.alertState !== undefined &&
-                <div className={props.alertState.alertClass}>
-                    {props.alertState.alertMessage}
+            {alertState !== undefined &&
+                <div className={alertState.alertClass}>
+                    {alertState.alertMessage}
                 </div>
             }
             <form onSubmit={handleSubmit}>
@@ -103,12 +103,4 @@ function RegisterPage(props: Props) {
     )
 }
 
-const mapStateToProps = (state: {alertReducer: AlertData}) => ({
-    alertState: state.alertReducer
-})
-
-const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction> ) => ({
-    handleRegister: (userData: UserData) => dispatch(userRegister(userData))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage)
+export default RegisterPage
